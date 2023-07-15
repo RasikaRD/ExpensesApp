@@ -52,10 +52,19 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Daily Expenses',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
+        accentColor:Color.fromARGB(255, 147, 97, 241),
+        fontFamily: 'Quicksand',
+        // appBarTheme: AppBarTheme(
+        //   textTheme: ThemeData.light().textTheme.copyWith(
+        //     titleMedium: const TextStyle(
+        //       fontFamily: 'OpenSans',
+        //       fontSize: 24,
+        //       fontWeight: FontWeight.bold,
+        //       )))
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Daily Expenses'),
+          title: const Text('Daily Expenses', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.bold),),
           actions: <Widget>[
             Builder(
               builder: (BuildContext context) {
