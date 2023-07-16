@@ -1,3 +1,4 @@
+import './widgets/chart.dart';
 import 'package:flutter/material.dart';
 
 import './widgets/transaction_list.dart';
@@ -21,6 +22,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // Transaction(
     //     id: 't2', amount: 1251.5, date: DateTime.now(), title: 'New cloths'),
   ];
+  List<Transaction> get _recentTransaction{
+    return _userTransaction.where((tx) {
+          return tx.date.isAfter(
+            DateTime.now().subtract(
+              const Duration(days: 7),
+          ),
+          );
+    }).toList();
+    
+  }
   void _addNewTransaction(String txTitle, double txAmount) {
     final newtx = Transaction(
       id: DateTime.now().toString(),
@@ -56,10 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
         fontFamily: 'Quicksand',
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-            titleMedium: const TextStyle(
+            titleLarge: const TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 20,
-              color: Colors.amber,
+              color: Color.fromARGB(255, 2, 2, 2),
               fontWeight: FontWeight.bold,
               )))
       ),
@@ -81,24 +92,25 @@ class _MyHomePageState extends State<MyHomePage> {
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-               const SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: Card(
-                  color: Colors.deepPurple,
-                  elevation: 65,
-                  margin:  EdgeInsets.symmetric(vertical: 5),
-                  child:  Text(
-                    "Transactions List",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
+              Chart(_recentTransaction),
+              //  const SizedBox(
+              //   width: double.infinity,
+              //   height: 40,
+              //   child: Card(
+              //     color: Colors.deepPurple,
+              //     elevation: 65,
+              //     margin:  EdgeInsets.symmetric(vertical: 5),
+              //     child:  Text(
+              //       "Transactions List",
+              //       textAlign: TextAlign.center,
+              //       style: TextStyle(
+              //         fontSize: 22,
+              //         fontWeight: FontWeight.w400,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               TransactionList(_userTransaction),
             ],
           ),
