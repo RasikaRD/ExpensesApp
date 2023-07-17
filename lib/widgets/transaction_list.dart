@@ -4,7 +4,9 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transaction;
-  const TransactionList(this.transaction, {super.key});
+  final Function deleteTx;
+  
+  const TransactionList(this.transaction,  this.deleteTx, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +34,26 @@ class TransactionList extends StatelessWidget {
                   margin: const EdgeInsets.all(5),
                   elevation: 5,
                   child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 30,
-                      child: Padding(
-                        padding: const EdgeInsets.all(6),
-                        child: FittedBox(
-                            child: Text('\$${transaction[index].amount}')),
+                      leading: CircleAvatar(
+                        radius: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: FittedBox(
+                              child: Text('\$${transaction[index].amount}')),
+                        ),
                       ),
-                    ),
-                    title: Text(
-                      transaction[index].title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    subtitle:
-                        Text(DateFormat.yMMMd().format(transaction[index].date)),
-                  ),
+                      title: Text(
+                        transaction[index].title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      subtitle: Text(
+                        DateFormat.yMMMd().format(transaction[index].date),
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        color: Colors.red,
+                        onPressed:()=> deleteTx(transaction[index].id),
+                      )),
                 );
                 // return Card(
                 //   child: Row(
